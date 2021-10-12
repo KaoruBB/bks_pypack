@@ -84,4 +84,17 @@ class multi_index_preprocess():
         else:
             print("I'm sorry. 暇な時に作る")
 
+    # マルチカラムのdfの，重複したカラムを空白に置き換え，そのカラムリストを返す関数
+    def mulicol_drop_duplicates(df, level=0):
+        tmplist = df.columns.get_level_values(level)
+        out_list = []
+        result_list = []
+        for name in tmplist:
+            if name not in out_list:
+                result_list.append(name)
+            else:
+                result_list.append("")
+            out_list.append(name)
+        return(out_list)
+
 
