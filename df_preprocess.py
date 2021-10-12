@@ -16,6 +16,26 @@ class df_basic():
         else:
             return [col[0] + col[1].capitalize() for col in df.columns.values]
 
+class group_preprocess():
+    
+    def __init__(self):
+        pass
+
+    # 合計行を追加して，groupbyの平均をとる
+    def add_total_mean(count_col, groupby_col, mean_col_list, single_col=False):
+        sumdf = valid_bid.groupby(groupby_col_list)[mean_col_list].sum()
+        countdf = valid_bid.groupby(groupby_col_list)[count_col].count()
+        tmpdf = pd.merge(
+            sumdf, countdf, left_index=True, right_index=True
+        )
+        tmpdf = dbsc.append_sum_row_label(tmpdf.unstack())
+        for col in mean_col_list:
+            tmpdf[col] = tmpdf[col] / tmpdf[count_col]
+        tmpdf[count_col] = tmpdf[count_col].fillna(0).astype(int)
+        if single_col == True:
+            return dbsc.get_converted_multi_columns(tmpdf)
+        else:
+            return tmpdf
 
 class preprocess_for_plotly():
     
