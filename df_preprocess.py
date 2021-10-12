@@ -12,9 +12,11 @@ class df_basic():
     # マルチカラムをシングルカラムに
     def get_converted_multi_columns(df, *, to_snake_case=True):
         if to_snake_case:
-            return [col[0] + '_' + col[1] for col in df.columns.values]
+            df.columns = [col[0] + '_' + col[1] for col in df.columns.values]
+            return df
         else:
-            return [col[0] + col[1].capitalize() for col in df.columns.values]
+            df.columns = [col[0] + col[1].capitalize() for col in df.columns.values]
+            return df
 
 class group_preprocess():
     
