@@ -59,3 +59,29 @@ class preprocess_for_plotly():
         df['color'] = middlle_c
         df.iloc[-1, -1] = bottom_c
         return df
+
+class multi_index_preprocess():
+    def __init__(self):
+        pass
+
+    # Rename Multiindex, Mulitcolumn header
+    # めんどいからaxis=0はまた今度
+    def rename_header(
+        df, 
+        rename_dict, # renameしたいやつの辞書
+        axis=1, 
+        level=0, # 変えたいマルチインデックス・カラムのlevel
+        node=2 # dfのマルチの深さ
+        ):
+        # rename columns
+        if axis=1:
+            tmplist = df.columns.get_level_values(level)
+            replace_list = [rename_dict[name] if name in rename_dict.keys() else name for name in tmplist]
+            df.columns = pd.MultiIndex.from_arrays(
+                [replace_list if n == level else df.columns.get_level_values(n) for n in range(0, node)]
+                )
+            return df
+        else:
+            print("I'm sorry. 暇な時に作る")
+
+
