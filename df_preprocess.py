@@ -70,13 +70,13 @@ class multi_index_preprocess():
         df, 
         rename_dict, # renameしたいやつの辞書
         axis=1, 
-        level=0, # 変えたいマルチインデックス・カラムのlevel
-        node=2 # dfのマルチの深さ
+        level=0# 変えたいマルチインデックス・カラムのlevel
         ):
         # rename columns
-        if axis=1:
+        if axis==1:
             tmplist = df.columns.get_level_values(level)
             replace_list = [rename_dict[name] if name in rename_dict.keys() else name for name in tmplist]
+            node=len(df.columns[0])
             df.columns = pd.MultiIndex.from_arrays(
                 [replace_list if n == level else df.columns.get_level_values(n) for n in range(0, node)]
                 )
