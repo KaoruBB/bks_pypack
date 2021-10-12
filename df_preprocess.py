@@ -108,7 +108,8 @@ class multi_index_preprocess():
             else:
                 result_list.append("")
             out_list.append(name)
-        return(pd.MultiIndex.from_arrays(
+        return(
+            pd.MultiIndex.from_arrays(
                 [result_list if n == level else df.columns.get_level_values(n) for n in range(0, node)]
                 )
             )
