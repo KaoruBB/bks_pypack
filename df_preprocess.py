@@ -24,9 +24,9 @@ class group_preprocess():
         pass
 
     # 合計行を追加して，groupbyの平均をとる
-    def add_total_mean(count_col, groupby_col, mean_col_list, single_col=False):
-        sumdf = valid_bid.groupby(groupby_col_list)[mean_col_list].sum()
-        countdf = valid_bid.groupby(groupby_col_list)[count_col].count()
+    def add_total_mean(df, count_col, groupby_col_list, mean_col_list, single_col=False):
+        sumdf = df.groupby(groupby_col_list)[mean_col_list].sum()
+        countdf = df.groupby(groupby_col_list)[count_col].count()
         tmpdf = pd.merge(
             sumdf, countdf, left_index=True, right_index=True
         )
