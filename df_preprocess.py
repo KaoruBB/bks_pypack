@@ -9,6 +9,14 @@ class df_basic():
         df.loc[sum_col_name] = df.sum(numeric_only=True)
         return df
 
+    # マルチカラムをシングルカラムに
+    def get_converted_multi_columns(df, *, to_snake_case=True):
+        if to_snake_case:
+            return [col[0] + '_' + col[1] for col in df.columns.values]
+        else:
+            return [col[0] + col[1].capitalize() for col in df.columns.values]
+
+
 class preprocess_for_plotly():
     
     def __init__(self):
