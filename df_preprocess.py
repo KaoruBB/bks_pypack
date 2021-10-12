@@ -86,6 +86,7 @@ class multi_index_preprocess():
 
     # マルチカラムのdfの，重複したカラムを空白に置き換え，そのカラムリストを返す関数
     def mulicol_drop_duplicates(df, level=0):
+        node=len(df.columns[0])
         tmplist = df.columns.get_level_values(level)
         out_list = []
         result_list = []
@@ -95,6 +96,9 @@ class multi_index_preprocess():
             else:
                 result_list.append("")
             out_list.append(name)
-        return(out_list)
+        return(pd.MultiIndex.from_arrays(
+                [result_list if n == level else df.columns.get_level_values(n) for n in range(0, node)]
+                )
+            )
 
 
