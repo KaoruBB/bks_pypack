@@ -1,3 +1,4 @@
+import itertools
 import math
 import numpy as np
 import pandas as pd
@@ -93,6 +94,22 @@ class multi_index_preprocess():
                 [replace_list if n == level else df.columns.get_level_values(n) for n in range(0, node)]
                 )
             return df
+        else:
+            print("I'm sorry. 暇な時に作る")
+
+    # sort Multiindex, Mulitcolumn header
+    # めんどいからaxis=0はまた今度
+    def sort_header(
+        df, 
+        sort_list, # ソートする順番の二次元リスト
+        axis=1, 
+        ):
+        # rename columns
+        if axis==1:
+            itr = itertools.product(*sort_list)
+            all_combination = [(i) for i in itr]
+            col_lst = [x for x in all_combination if x in valid_bid_agg.columns]
+            return df.loc[:,col_lst]
         else:
             print("I'm sorry. 暇な時に作る")
 
