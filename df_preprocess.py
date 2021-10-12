@@ -1,3 +1,9 @@
+import math
+import numpy as np
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+
 # 基本的な操作
 class df_basic():
     
@@ -30,12 +36,12 @@ class group_preprocess():
         tmpdf = pd.merge(
             sumdf, countdf, left_index=True, right_index=True
         )
-        tmpdf = dbsc.append_sum_row_label(tmpdf.unstack())
+        tmpdf = df_basic.append_sum_row_label(tmpdf.unstack())
         for col in mean_col_list:
             tmpdf[col] = tmpdf[col] / tmpdf[count_col]
         tmpdf[count_col] = tmpdf[count_col].fillna(0).astype(int)
         if single_col == True:
-            return dbsc.get_converted_multi_columns(tmpdf)
+            return df_basic.get_converted_multi_columns(tmpdf)
         else:
             return tmpdf
 
