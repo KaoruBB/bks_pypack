@@ -131,4 +131,17 @@ class multi_index_preprocess():
                 )
             )
 
+    # 縦書きにする
+    def make_tategaki(s):
+        """
+        This function simply puts a newline character between every character
+        so that it looks like tategaki in plots.
+        """
+        ret = []
+        for char in s:
+            ret.append(char)
+            ret.append("\n")
+        ret = "".join(ret)
+        
+        return ret
 
