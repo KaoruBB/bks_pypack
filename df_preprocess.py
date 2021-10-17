@@ -73,6 +73,20 @@ class preprocess_for_plotly():
         df.iloc[-1, -1] = bottom_c
         return df
 
+    # 縦書きにする
+    def make_tategaki(s):
+        """
+        This function simply puts a newline character between every character
+        so that it looks like tategaki in plots.
+        """
+        ret = []
+        for char in s:
+            ret.append(char)
+            ret.append("\n")
+        ret = "".join(ret)
+        
+        return ret
+
 class multi_index_preprocess():
     def __init__(self):
         pass
@@ -131,17 +145,5 @@ class multi_index_preprocess():
                 )
             )
 
-    # 縦書きにする
-    def make_tategaki(s):
-        """
-        This function simply puts a newline character between every character
-        so that it looks like tategaki in plots.
-        """
-        ret = []
-        for char in s:
-            ret.append(char)
-            ret.append("\n")
-        ret = "".join(ret)
-        
-        return ret
+    
 
