@@ -60,7 +60,8 @@ class group_preprocess():
                 return df_basic.get_converted_multi_columns(tmpdf)
             else:
                 return tmpdf
-        if len(groupby_col_list) == 3:
+        # if len(groupby_col_list) == 3:
+        else:
             # tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack()
             grlen = len(groupby_col_list)
             tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack(level=list(range(grlen-1, 0, -1))).droplevel(level=0, axis=1)
