@@ -62,11 +62,23 @@ class group_preprocess():
 
         elif len(groupby_col_list) == 2:
             # tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack()
-            tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack(level=list(range(len(groupby_col_list)-1, 0, -1)))
+            grlen = len(groupby_col_list)
+            tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack(level=list(range(grlen-1, 0, -1)))
             sumdf = pd.DataFrame(
-                df.groupby(groupby_col_list[-1]).agg(agg_dict).transpose().stack()
-            ).transpose().rename(index={0:total_col_name})
-            tmpdf = pd.concat([tmpdf, sumdf])
+                df.groupby(groupby_col_list[grlen-1:0:-1]).agg(agg_dict)
+            )
+            tuples=[]
+            values=[]
+            for cols in sumdf.columns:
+                for idx in sumdf.index:
+                    tmplst = list(cols)
+                    tmplst.append(idx)
+                    tuples.append(tuple(tmplst))
+                    # values
+                    values.append(sumdf.loc[idx,cols])
+            columns = pd.MultiIndex.from_tuples(tuples)
+            gachisum = pd.DataFrame([values], columns=columns).rename(index={0:total_col_name})
+            tmpdf = pd.concat([tmpdf, gachisum])
             if single_col == True:
                 return df_basic.get_converted_multi_columns(tmpdf)
             else:
