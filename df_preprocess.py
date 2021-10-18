@@ -62,9 +62,10 @@ class group_preprocess():
                 return tmpdf
         if len(groupby_col_list) == 3:
             # tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack()
-            tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack(level=list(range(len(groupby_col_list)-1, 0, -1)))
+            grlen = len(groupby_col_list)
+            tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack(level=list(range(grlen-1, 0, -1))).droplevel(level=0, axis=1)
             sumdf = pd.DataFrame(
-                df.groupby(groupby_col_list[2:0:-1]).agg(agg_dict)
+                df.groupby(groupby_col_list[grken-1:0:-1]).agg(agg_dict)
             ).transpose()
             sumdf = sumdf.rename(index={sumdf.index.values[0]:total_col_name})
             tmpdf = pd.concat([tmpdf, sumdf])
