@@ -47,16 +47,31 @@ class group_preprocess():
             return tmpdf
 
     # 合計行を追加して，groupbyする（上の一般化）
+    # ここは改善の余地あり（かなり汚い）
     def add_total_agg(df, groupby_col_list, agg_dict, single_col=False, total_col_name="Total"):
-        tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack()
-        sumdf = pd.DataFrame(
-            df.groupby(groupby_col_list[-1]).agg(agg_dict).transpose().stack()
-        ).transpose().rename(index={0:total_col_name})
-        tmpdf = pd.concat([tmpdf, sumdf])
-        if single_col == True:
-            return df_basic.get_converted_multi_columns(tmpdf)
-        else:
-            return tmpdf
+        if len(groupby_col_list) == 2:
+            # tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack()
+            tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack(level=list(range(len(groupby_col_list)-1, 0, -1)))
+            sumdf = pd.DataFrame(
+                df.groupby(groupby_col_list[-1]).agg(agg_dict).transpose().stack()
+            ).transpose().rename(index={0:total_col_name})
+            tmpdf = pd.concat([tmpdf, sumdf])
+            if single_col == True:
+                return df_basic.get_converted_multi_columns(tmpdf)
+            else:
+                return tmpdf
+        if len(groupby_col_list) == 3:
+            # tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack()
+            tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack(level=list(range(len(groupby_col_list)-1, 0, -1)))
+            sumdf = pd.DataFrame(
+                df.groupby(groupby_col_list[2:0:-1]).agg(agg_dict)
+            ).transpose()
+            sumdf = sumdf.rename(index={sumdf.index.values[0]:total_col_name})
+            tmpdf = pd.concat([tmpdf, sumdf])
+            if single_col == True:
+                return df_basic.get_converted_multi_columns(tmpdf)
+            else:
+                return tmpdf
 
 class preprocess_for_plotly():
     
