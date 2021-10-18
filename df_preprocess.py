@@ -54,10 +54,10 @@ class group_preprocess():
             sumdf = df.agg(agg_dict)
             for k, v in agg_dict.items():
                 if type(v) == list:
-                for vv in v:
-                    tmpdf.loc[total_col_name,(k, vv)] = sumdf.loc[vv, k]
-            else:
-                tmpdf.loc[total_col_name, (k,v)] = sumdf.loc[v, k]
+                    for vv in v:
+                        tmpdf.loc[total_col_name,(k, vv)] = sumdf.loc[vv, k]
+                else:
+                    tmpdf.loc[total_col_name, (k,v)] = sumdf.loc[v, k]
             return tmpdf
 
         elif len(groupby_col_list) == 2:
