@@ -73,6 +73,23 @@ class preprocess_for_plotly():
         df.iloc[-1, -1] = bottom_c
         return df
 
+    # カラムごとのmax幅を出すリスト
+    def get_columnwidth(df, multiplication=1):
+        columnwidth=[]
+        for col in df.columns:
+            max_length = 0
+            tmplist= df[col].to_list()
+            if type(col) == tuple: # マルチカラムの場合
+                tmplist.extend(col)
+            else:
+                tmplist.append(col)
+            # 文字数を格納
+            tmplist = list(map(lambda x: len(str(x)), tmplist))
+            # 更新
+            max_length = max(tmplist) if max_length < max(tmplist) else max_length
+            columnwidth.append(max_length * multiplication)
+        return columnwidth
+
     # 縦書きにする
     def make_tategaki(s):
         """
