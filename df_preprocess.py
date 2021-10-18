@@ -65,7 +65,7 @@ class group_preprocess():
             grlen = len(groupby_col_list)
             tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack(level=list(range(grlen-1, 0, -1))).droplevel(level=0, axis=1)
             sumdf = pd.DataFrame(
-                df.groupby(groupby_col_list[grken-1:0:-1]).agg(agg_dict)
+                df.groupby(groupby_col_list[grlen-1:0:-1]).agg(agg_dict)
             ).transpose()
             sumdf = sumdf.rename(index={sumdf.index.values[0]:total_col_name})
             tmpdf = pd.concat([tmpdf, sumdf])
