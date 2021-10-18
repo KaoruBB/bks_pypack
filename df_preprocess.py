@@ -49,7 +49,18 @@ class group_preprocess():
     # 合計行を追加して，groupbyする（上の一般化）
     # ここは改善の余地あり（かなり汚い）
     def add_total_agg(df, groupby_col_list, agg_dict, single_col=False, total_col_name="Total"):
-        if len(groupby_col_list) == 2:
+        if len(groupby_col_list) == 1:
+            tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack(level=list(range(len(groupby_col_list)-1, 0, -1)))
+            sumdf = df.agg(agg_dict)
+            for k, v in agg_dict.items():
+                if type(v) == list:
+                for vv in v:
+                    tmpdf.loc[total_col_name,(k, vv)] = sumdf.loc[vv, k]
+            else:
+                tmpdf.loc[total_col_name, (k,v)] = sumdf.loc[v, k]
+            return tmpdf
+
+        elif len(groupby_col_list) == 2:
             # tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack()
             tmpdf = df.groupby(groupby_col_list).agg(agg_dict).unstack(level=list(range(len(groupby_col_list)-1, 0, -1)))
             sumdf = pd.DataFrame(
