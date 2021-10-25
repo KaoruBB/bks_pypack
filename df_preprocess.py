@@ -109,9 +109,10 @@ class preprocess_for_plotly():
         middlle_c='rgb(239, 243, 255)',
         bottom_c='rgb(189, 215, 231)'
         ):
-        df['color'] = middlle_c
-        df.iloc[-1, -1] = bottom_c
-        return df
+        tmpdf = df.copy()
+        tmpdf['color'] = middlle_c
+        tmpdf.iloc[-1, -1] = bottom_c
+        return tmpdf
 
     # カラムごとのmax幅を出すリスト
     def get_columnwidth(df, multiplication=1):
