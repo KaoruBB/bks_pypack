@@ -129,6 +129,7 @@ class preprocess_for_plotly():
             max_length = max(tmplist) if max_length < max(tmplist) else max_length
             columnwidth.append(max_length * multiplication)
         return columnwidth
+    
 
     # 縦書きにする
     def make_tategaki(s):
