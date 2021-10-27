@@ -114,6 +114,18 @@ class preprocess_for_plotly():
         tmpdf.iloc[-1, -1] = bottom_c
         return tmpdf
 
+    # 特定の行の色の行を変更する関数
+    def row_color_change(
+        df, 
+        color_specify_dict, # keyに色，valueにインデックス名
+        set_index=False, color_col="color"
+        ):
+        if set_index is not False:
+            df = df.set_index(set_index)
+        for k, v in color_specify_dict.items():
+            df.loc[v, color_col] = k
+        return df.reset_index() if set_index is not False else df
+
     # カラムごとのmax幅を出すリスト
     def get_columnwidth(df, multiplication=1):
         columnwidth=[]
