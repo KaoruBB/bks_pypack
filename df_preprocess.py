@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import unicodedata
 
 # 基本的な操作
 class df_basic():
@@ -126,6 +127,15 @@ class preprocess_for_plotly():
             df.loc[v, color_col] = k
         return df.reset_index() if set_index is not False else df
 
+    def get_east_asian_width_count(text):
+        count = 0
+        for c in text:
+            if unicodedata.east_asian_width(c) in 'FWA':
+                count += 2
+            else:
+                count += 1
+        return count
+
     # カラムごとのmax幅を出すリスト
     def get_columnwidth(df, multiplication=1):
         columnwidth=[]
@@ -137,7 +147,8 @@ class preprocess_for_plotly():
             else:
                 tmplist.append(col)
             # 文字数を格納
-            tmplist = list(map(lambda x: len(str(x)), tmplist))
+            # tmplist = list(map(lambda x: len(str(x)), tmplist))
+            tmplist = list(map(preprocess_for_plotly.get_east_asian_width_count), tmplist))
             # 更新
             max_length = max(tmplist) if max_length < max(tmplist) else max_length
             columnwidth.append(max_length * multiplication)
