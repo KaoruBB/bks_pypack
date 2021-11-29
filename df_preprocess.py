@@ -148,7 +148,7 @@ class preprocess_for_plotly():
                 tmplist.append(col)
             # 文字数を格納
             # tmplist = list(map(lambda x: len(str(x)), tmplist))
-            tmplist = list(map(preprocess_for_plotly.get_east_asian_width_count), tmplist)
+            tmplist = list(map(preprocess_for_plotly.get_east_asian_width_count, tmplist))
             # 更新
             max_length = max(tmplist) if max_length < max(tmplist) else max_length
             columnwidth.append(max_length * multiplication)
