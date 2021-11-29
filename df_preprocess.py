@@ -129,7 +129,7 @@ class preprocess_for_plotly():
 
     def get_east_asian_width_count(text):
         count = 0
-        for c in text:
+        for c in str(text):
             if unicodedata.east_asian_width(c) in 'FWA':
                 count += 2
             else:
