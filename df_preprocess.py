@@ -158,6 +158,8 @@ class preprocess_for_plotly():
     def visually_distinct_colors(n): 
         if n==5:
             return ["#ffa500", "#00ff7f", "#00bfff", "#0000ff", "#ff1493"]
+        else:
+            print(f"error: n={n} pattern is not prepared.")
     
     # n色のグラデーションカラーのパターンを返す関数
     def gradation_colors(n):
@@ -170,6 +172,8 @@ class preprocess_for_plotly():
                 "#00A0E9", "#0086D1", "#0068B7", "#00479D", "#1D2088", "#601986",
                 "#920783", "#BE0081", "#E4007F", "#E5006A", "#E5004F", "#E60033",
             ]
+        else:
+            print(f"error: n={n} pattern is not prepared.")
 
     # 縦書きにする
     def make_tategaki(s):
