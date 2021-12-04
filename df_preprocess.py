@@ -160,8 +160,10 @@ class preprocess_for_plotly():
             return ["#ffa500", "#00ff7f", "#00bfff", "#0000ff", "#ff1493"]
     
     # n色のグラデーションカラーのパターンを返す関数
-    def gradation_colors(n): 
-        if n==24:
+    def gradation_colors(n):
+        if n==6:
+            return ["#1D2088", "#E4007F", "E60012", "FFF100", "009944", "00A0E9"]
+        elif n==24:
             return [
                 "#E60012", "#EB6100", "#F39800", "#FCC800", "#FFF100", "#CFDB00",
                 "#8FC31F", "#22AC38", "#009944", "#009B6B", "#009E96", "#00A0C1", 
