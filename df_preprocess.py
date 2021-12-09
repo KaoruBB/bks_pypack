@@ -158,6 +158,8 @@ class preprocess_for_plotly():
     def visually_distinct_colors(n): 
         if n==5:
             return ["#ffa500", "#00ff7f", "#00bfff", "#0000ff", "#ff1493"]
+        elif n==6:
+            return ["#66cdaa", "#ffa500", "#00ff00", "#0000ff", "#1e90ff", "#ff1493"]
         else:
             print(f"error: n={n} pattern is not prepared.")
     
