@@ -161,7 +161,7 @@ class preprocess_for_plotly():
             return ["#ffa500", "#00ff7f", "#00bfff", "#0000ff", "#ff1493"]
         elif n==6:
             return ["#66cdaa", "#ffa500", "#00ff00", "#0000ff", "#1e90ff", "#ff1493"]
-        elif n==1:
+        elif n==11:
             return [
                 "#8b4513", "#228b22", "#4682b4", "#4b0082", "#ff0000", "#00ff00",
                 "#00ffff", "#0000ff", "#ffff54", "#ff69b4", "#ffe4c4"
