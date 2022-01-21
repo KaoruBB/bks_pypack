@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import re
 import unicodedata
 
 # 基本的な操作
@@ -160,10 +161,18 @@ class preprocess_for_plotly():
             return ["#ffa500", "#00ff7f", "#00bfff", "#0000ff", "#ff1493"]
         elif n==6:
             return ["#66cdaa", "#ffa500", "#00ff00", "#0000ff", "#1e90ff", "#ff1493"]
+<<<<<<< HEAD
         elif n==7:
             return ["#808000", "#ff4500", "#c71585", "#00ff00", "#00ffff", "#0000ff", "#1e90ff"]
         elif n==8:
             return ["#191970", "#006400", "#ff0000", "#ffd700", "#00ff00", "#00ffff", "#ff00ff", "#ffb6c1"]
+=======
+        elif n==11:
+            return [
+                "#8b4513", "#228b22", "#4682b4", "#4b0082", "#ff0000", "#00ff00",
+                "#00ffff", "#0000ff", "#ffff54", "#ff69b4", "#ffe4c4"
+            ]
+>>>>>>> 76e2d3305191e6bdfc1ba53ecc4cb79148dcbe62
         else:
             print(f"error: n={n} pattern is not prepared.")
     
@@ -194,6 +203,25 @@ class preprocess_for_plotly():
         ret = "".join(ret)
         
         return ret
+
+    # 年齢（continuous）を5歳ごとのカテゴリ型に変換
+    def categorize_age5(age):
+        for category in [
+            '0~4', '5~9', '10~14', '15~19', '20~24', '25~29', '30~34', '35~39', '40~44', '45~49', '50~54',
+            '55~59', '60~64', '65~69', '70~74', '75~79', '80~84', '85~89', '90~94', '95~99', '100~']:
+            lower = re.search("(.*)(?=~)", category).group()
+            upper = re.search("(?<=~)(.*)", category).group()
+            if upper == "": #  categoryが'100~'の時
+                if age >= int(lower):
+                    return category
+                    break
+            else:
+                if int(lower) <= age <= int(upper):
+                    return category
+                    break
+
+
+
 
 class multi_index_preprocess():
     def __init__(self):
