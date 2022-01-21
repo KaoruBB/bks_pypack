@@ -160,6 +160,10 @@ class preprocess_for_plotly():
             return ["#ffa500", "#00ff7f", "#00bfff", "#0000ff", "#ff1493"]
         elif n==6:
             return ["#66cdaa", "#ffa500", "#00ff00", "#0000ff", "#1e90ff", "#ff1493"]
+        elif n==7:
+            return ["#808000", "#ff4500", "#c71585", "#00ff00", "#00ffff", "#0000ff", "#1e90ff"]
+        elif n==8:
+            return ["#191970", "#006400", "#ff0000", "#ffd700", "#00ff00", "#00ffff", "#ff00ff", "#ffb6c1"]
         else:
             print(f"error: n={n} pattern is not prepared.")
     
