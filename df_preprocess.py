@@ -226,9 +226,6 @@ class preprocess_for_plotly():
                     return category
                     break
 
-
-
-
 class multi_index_preprocess():
     def __init__(self):
         pass
