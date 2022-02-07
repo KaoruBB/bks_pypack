@@ -254,7 +254,6 @@ class multi_index_preprocess():
             print("I'm sorry. 暇な時に作る")
 
     # sort Multiindex, Mulitcolumn header
-    # めんどいからaxis=0はまた今度
     def sort_header(
         df, 
         sort_list, # ソートする順番の二次元リスト
@@ -266,8 +265,13 @@ class multi_index_preprocess():
             all_combination = [(i) for i in itr]
             col_lst = [x for x in all_combination if x in df.columns]
             return df.loc[:,col_lst]
+        elif axis==0:
+            itr = itertools.product(*sort_list)
+            all_combination = [(i) for i in itr]
+            idx_lst = [x for x in all_combination if x in df.index]
+            return df.loc[idx_lst, :]
         else:
-            print("I'm sorry. 暇な時に作る")
+            print("axis must be 0 or 1")
 
     # マルチカラムのdfの，重複したカラムを空白に置き換え，そのカラムリストを返す関数
     def mulicol_drop_duplicates(df):
