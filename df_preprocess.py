@@ -26,6 +26,14 @@ class df_basic():
         else:
             df.columns = [col[0] + col[1].capitalize() for col in df.columns.values]
             return df
+    
+    # ストリングの列をつなげたカラムを作る
+    def concat_str_cols(df,columns, gap=" / ", newcolnames="category"):
+        df[columns] = df[columns].fillna('-')
+        df[f'{newcolnames}2'] = df[columns[0]].str.cat(df[columns[1]], sep=gap)
+        for col in enumerate(columns[2:]):
+            df[f'{newcolnames}{col[0]+3}'] = df[f'{newcolnames}{col[0]+2}'].str.cat(df[col[1]], sep=gap)                  
+        return df
 
 class group_preprocess():
     
