@@ -165,7 +165,9 @@ class preprocess_for_plotly():
 
     # 見分けやすいカラーのパターンを返す関数
     def visually_distinct_colors(n): 
-        if n==3:
+        if n==2:
+            return["#00ff00", "#0000ff"]
+        elif n==3:
             return ["#ff0000", "#00ff00", "#0000ff"]
         elif n==4:
             return ["#ff0000", "#00ff00", "#0000ff", "#87cefa"]
